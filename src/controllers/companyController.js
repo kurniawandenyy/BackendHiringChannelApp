@@ -8,7 +8,7 @@ const model = require('../models/company')
 
 //set storage engine multer
 const storage = multer.diskStorage({
-    destination: './public/uploads/',
+    destination: './public/uploads/CompanyLogo',
     filename: (req, file, cb)=>{
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }

@@ -23,6 +23,7 @@ Route
 
     //auth
     .post('/api/v1/register', auth.register)
+    .post('/api/v1/login', auth.login)
 
 module.exports=Route
 

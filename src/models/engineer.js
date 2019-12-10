@@ -112,7 +112,7 @@ module.exports = {
     },
     sortEngineers : (sort)=>{
         return new Promise((resolve, reject)=>{
-            conn.query('SELECT * FROM engineer order by '+sort, (err, result)=>{
+            conn.query('SELECT * FROM engineer order by '+sort+' desc', (err, result)=>{
                 if(err){
                     reject(new Error(err))
                 }else{

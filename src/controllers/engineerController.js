@@ -2,6 +2,25 @@
 
 const uuidv4 = require('uuid/v4')
 const model = require('../models/engineer')
+const multer = require('multer')
+const path = require('path')
+const helpers = require('../helpers/helpers')
+
+const storage = multer.diskStorage({
+    destination: './public/uploads/showcase',
+    filename: (req, file, cb)=>{
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+})
+
+//init upload
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1*1024*1024
+    },
+    fileFilter: helpers.imageFilter
+}).single('showcase')
 
 module.exports = {
     getEngineers:(req, res)=>{
@@ -45,43 +64,61 @@ module.exports = {
         
     // },
     addEngineer : (req, res)=>{
-        const {name, description, skill, location, date_of_birth, showcase} = req.body
-        const id = uuidv4()
-        const {date_created, date_updated} = new Date()
-        const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated}
+        upload(req, res, (err)=>{
+            if(err){
+                res.status(400).json({
+                    message: err
+                })
+            }else{
+                const {name, description, skill, location, date_of_birth} = req.body
+                const id = uuidv4()
+                const showcase = req.file.filename
+                const {date_created, date_updated} = new Date()
+                const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated}
 
-        model.addEngineer(data)
-        .then(result=>{
-            res.status(200).json({
-                error: false,
-                message: result
-            })
-        })
-        .catch(err=>{
-            res,status(400).json({
-                error:true,
-                message:err
-            })
+                model.addEngineer(data)
+                .then(result=>{
+                    res.status(200).json({
+                        error: false,
+                        message: result
+                    })
+                })
+                .catch(err=>{
+                    res,status(400).json({
+                        error:true,
+                        message:err
+                    })
+                })
+            }
         })
     },
     editEngineer : (req, res)=>{
-        const {name, description, skill, location, date_of_birth, showcase} = req.body
-        const date_updated = new Date()
-        const id = req.params.id
-        const data = {name, description, skill, location, date_of_birth, showcase, date_updated}
+        upload(req, res, (err)=>{
+            if(err){
+                res.status(400).json({
+                    message: err
+                })
+            }else{
+                const {name, description, skill, location, date_of_birth} = req.body
+                const showcase = req.file.filename
+                const date_updated = new Date()
+                const id = req.params.id
+                const data = {name, description, skill, location, date_of_birth, showcase, date_updated}
 
-        model.editEngineer(data, id)
-        .then(result=>{
-            res.status(200).json({
-                error: false,
-                message: result
-            })
-        })
-        .catch(err=>{
-            res.status(400).json({
-                error: true,
-                message: err
-            })
+                model.editEngineer(data, id)
+                .then(result=>{
+                    res.status(200).json({
+                        error: false,
+                        message: result
+                    })
+                })
+                .catch(err=>{
+                    res.status(400).json({
+                        error: true,
+                        message: err
+                    })
+                })
+            }
         })
     },
     deleteEngineer : (req, res)=>{
