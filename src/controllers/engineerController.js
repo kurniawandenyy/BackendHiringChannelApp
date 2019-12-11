@@ -27,9 +27,9 @@ module.exports = {
         const page = parseInt(req.query.page) || 1
         const limit = parseInt(req.query.limit) || 5
         const offset = page*limit-limit
-        const sort = req.query.sort ? req.query.sort : ''
+        const sort = req.query.sort ? req.query.sort : 'name'
 
-        // if(sort){
+        // if(!sort){
             model.getEngineers(limit, offset, page, sort)
             .then(result=>{
                 res.status(200).json({

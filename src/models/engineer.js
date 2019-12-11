@@ -15,7 +15,7 @@ module.exports = {
                     if(err){
                         reject(new Error(err))
                     }else{
-                        conn.query('SELECT * from engineer order by ? desc limit ? offset ? ', [sort, limit, offset], (err, data) => {
+                        conn.query('SELECT * from engineer order by '+sort+' desc limit ? offset ?', [limit, offset], (err, data) => {
                             if(err){
                                reject(new Error(err))
                             }else{
@@ -109,7 +109,7 @@ module.exports = {
                 })
             }
         })
-    },
+    }
     // sortEngineers : (sort)=>{
     //     return new Promise((resolve, reject)=>{
     //         conn.query('SELECT * FROM engineer order by '+sort+' desc', (err, result)=>{
