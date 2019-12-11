@@ -3,8 +3,8 @@ const jwt =require('jsonwebtoken')
 
 module.exports = {
     engineerCheck : (req, res, next)=>{
-        const { authorization, username } = req.headers
-        if(!authorization || !username){
+        const { authorization, email } = req.headers
+        if(!authorization || !email){
             return res.status(404).json({
                 message: 'Unauthorized'
             })
@@ -23,10 +23,10 @@ module.exports = {
                 })
             }
                 
-            //check if token is registered with correct username
-            if(username !== decoded.result[0].username){
+            //check if token is registered with correct email
+            if(email !== decoded.result[0].email){
                 return res.status(403).json({
-                    message : 'Token is not Valid for selected username'
+                    message : 'Token is not Valid for selected email'
                 })
             }
             if(decoded.result[0].role !== 'engineer'){
@@ -43,8 +43,8 @@ module.exports = {
         })
     },
     companyCheck : (req, res, next)=>{
-        const { authorization, username } = req.headers
-        if(!authorization || !username){
+        const { authorization, email } = req.headers
+        if(!authorization || !email){
             return res.status(404).json({
                 message: 'Unauthorized'
             })
@@ -64,9 +64,9 @@ module.exports = {
             }
                 
             //check if token is registered with correct username
-            if(username !== decoded.result[0].username){
+            if(email !== decoded.result[0].email){
                 return res.status(403).json({
-                    message : 'Token is not Valid for selected username'
+                    message : 'Token is not Valid for selected email'
                 })
             }
             if(decoded.result[0].role !== 'company'){

@@ -8,9 +8,9 @@ const jwt = require('jsonwebtoken')
 module.exports = {
     register : (req, res)=>{
         const id = uuidv4()
-        const {username, role} = req.body
+        const {email, role} = req.body
         const password = bcrypt.hashSync(req.body.password, 8)
-        const data = {id, username, password, role}
+        const data = {id, email, password, role}
 
         model.register(data)
         .then(result=>{
@@ -27,14 +27,14 @@ module.exports = {
         })
     },
     login : (req, res)=>{
-        const username = req.body.username
+        const email = req.body.email
         const password = req.body.password?req.body.password:''
-        if(!username){
+        if(!email){
             res.json({
-                message : 'Username required'
+                message : 'Email required'
             })
         }else{
-            model.getUser(username)
+            model.getUser(email)
             .then(result=>{
                 let validPassword = bcrypt.compareSync(password, result[0].password)
                 if(!validPassword){

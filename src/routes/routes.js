@@ -18,9 +18,9 @@ Route
 
     //company routes
     .get('/company', authCheck.companyCheck, company.getCompanies)
-    .post('/company', company.addCompany)
-    .put('/company/:id', company.editCompany)
-    .delete('/company/:id', company.deleteCompany)
+    .post('/company', authCheck.companyCheck, company.addCompany)
+    .put('/company/:id', authCheck.companyCheck, company.editCompany)
+    .delete('/company/:id', authCheck.companyCheck, company.deleteCompany)
 
     //auth
     .post('/register', auth.register)

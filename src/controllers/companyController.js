@@ -47,10 +47,10 @@ exports.addCompany = (req, res)=>{
                 message: err
             })
         }else{
-            const {name, location, description} = req.body
+            const {name, email, location, description} = req.body
             const id = uuidv4()
             const logo = req.file.filename
-            const data = {id, name, logo, location, description}
+            const data = {id, name, email, logo, location, description}
             model.addCompany(data)
             .then(result=>{
                 res.status(201).json({
@@ -76,9 +76,9 @@ exports.editCompany=(req, res)=>{
                 message: err
             })
         }else{
-            const {name, location, description} = req.body
+            const {name, email, location, description} = req.body
             const logo = req.file.filename
-            const data = {name, logo, location, description}
+            const data = {name, email, logo, location, description}
             const id = req.params.id
             model.editCompany(data, id)
             .then(result=>{
