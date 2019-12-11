@@ -5,25 +5,26 @@ const Route = express.Router()
 const engineer = require('../controllers/engineerController')
 const company = require('../controllers/companyController')
 const auth = require('../controllers/authController')
+const authCheck = require('../helpers/authCheck')
 
 Route
     //Engineer routes
-    .get('/api/v1/engineer', engineer.getEngineers)
-    .post('/api/v1/engineer', engineer.addEngineer)
-    .put('/api/v1/engineer/:id', engineer.editEngineer)
-    .delete('/api/v1/engineer/:id', engineer.deleteEngineer)
-    .get('/api/v1/engineer/search', engineer.searchEngineers)
+    .get('/engineer', authCheck.engineerCheck, engineer.getEngineers)
+    .post('/engineer', authCheck.engineerCheck, engineer.addEngineer)
+    .put('/engineer/:id', authCheck.engineerCheck, engineer.editEngineer)
+    .delete('/engineer/:id', authCheck.engineerCheck, engineer.deleteEngineer)
+    .get('/engineer/search', engineer.searchEngineers)
     // .get('/api/v1/engineer/:sort', engineer.sortEngineers)
 
     //company routes
-    .get('/api/v1/company', company.getCompanies)
-    .post('/api/v1/company', company.addCompany)
-    .put('/api/v1/company/:id', company.editCompany)
-    .delete('/api/v1/company/:id', company.deleteCompany)
+    .get('/company', authCheck.companyCheck, company.getCompanies)
+    .post('/company', company.addCompany)
+    .put('/company/:id', company.editCompany)
+    .delete('/company/:id', company.deleteCompany)
 
     //auth
-    .post('/api/v1/register', auth.register)
-    .post('/api/v1/login', auth.login)
+    .post('/register', auth.register)
+    .post('/login', auth.login)
 
 module.exports=Route
 

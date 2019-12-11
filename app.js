@@ -22,7 +22,7 @@ app.use((req, res, next)=>{
 })
 
 app.use(express.static('./public'))
-app.use('/', routeNav)
+app.use('/api/v1', routeNav)
 
 app.listen(port, function(){
     console.log(`Server is running on port ${port}!`)

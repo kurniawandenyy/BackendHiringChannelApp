@@ -1,7 +1,7 @@
 const conn = require('../configs/connect')
 
 module.exports = {
-    getEngineers : (limit, offset,page)=>{
+    getEngineers : (limit, offset, page, sort)=>{
         return new Promise((resolve, reject)=>{
             conn.query('SELECT COUNT(*) as data from engineer', (err, rows)=>{
                 let dataTotal = rows[0].data
@@ -15,7 +15,7 @@ module.exports = {
                     if(err){
                         reject(new Error(err))
                     }else{
-                        conn.query('SELECT * from engineer limit ? offset ?', [limit, offset], (err, data) => {
+                        conn.query('SELECT * from engineer order by ? desc limit ? offset ? ', [sort, limit, offset], (err, data) => {
                             if(err){
                                reject(new Error(err))
                             }else{
@@ -110,15 +110,15 @@ module.exports = {
             }
         })
     },
-    sortEngineers : (sort)=>{
-        return new Promise((resolve, reject)=>{
-            conn.query('SELECT * FROM engineer order by '+sort+' desc', (err, result)=>{
-                if(err){
-                    reject(new Error(err))
-                }else{
-                    resolve(result)
-                }
-            })
-        })
-    }
+    // sortEngineers : (sort)=>{
+    //     return new Promise((resolve, reject)=>{
+    //         conn.query('SELECT * FROM engineer order by '+sort+' desc', (err, result)=>{
+    //             if(err){
+    //                 reject(new Error(err))
+    //             }else{
+    //                 resolve(result)
+    //             }
+    //         })
+    //     })
+    // }
 }

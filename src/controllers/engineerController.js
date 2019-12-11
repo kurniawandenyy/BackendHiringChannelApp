@@ -27,15 +27,15 @@ module.exports = {
         const page = parseInt(req.query.page) || 1
         const limit = parseInt(req.query.limit) || 5
         const offset = page*limit-limit
-        const sort = req.query.sort
+        const sort = req.query.sort ? req.query.sort : ''
 
-        if(!sort){
-            model.getEngineers(limit, offset, page)
+        // if(sort){
+            model.getEngineers(limit, offset, page, sort)
             .then(result=>{
-            res.status(200).json({
-                error: false,
-                data: result
-            })
+                res.status(200).json({
+                    error: false,
+                    data: result
+                })
             })
             .catch(err=>{
                 res.status(400).json({
@@ -43,21 +43,21 @@ module.exports = {
                     message: err
                 })
             })
-        }else{
-            model.sortEngineers(sort)
-            .then(result=>{
-                res.status(200).json({
-                    error:false,
-                    data: result
-                })
-            })
-            .catch(err=>{
-                res.status(400).json({
-                    error:true,
-                    message:err
-                })
-            })
-        }
+        // }else{
+        //     model.sortEngineers(sort)
+        //     .then(result=>{
+        //         res.status(200).json({
+        //             error:false,
+        //             data: result
+        //         })
+        //     })
+        //     .catch(err=>{
+        //         res.status(400).json({
+        //             error:true,
+        //             message:err
+        //         })
+        //     })
+        // }
     },
     // sortEngineers: (req, res)=>{
     //     const sort=req.params.sort
@@ -70,11 +70,11 @@ module.exports = {
                     message: err
                 })
             }else{
-                const {name, description, skill, location, date_of_birth} = req.body
+                const {name, description, skill, location, date_of_birth,no_hp,email} = req.body
                 const id = uuidv4()
                 const showcase = req.file.filename
                 const {date_created, date_updated} = new Date()
-                const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated}
+                const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated, no_hp, email}
 
                 model.addEngineer(data)
                 .then(result=>{
@@ -99,11 +99,11 @@ module.exports = {
                     message: err
                 })
             }else{
-                const {name, description, skill, location, date_of_birth} = req.body
+                const {name, description, skill, location, date_of_birth, no_hp, email} = req.body
                 const showcase = req.file.filename
                 const date_updated = new Date()
                 const id = req.params.id
-                const data = {name, description, skill, location, date_of_birth, showcase, date_updated}
+                const data = {name, description, skill, location, date_of_birth, showcase, date_updated, no_hp, email}
 
                 model.editEngineer(data, id)
                 .then(result=>{

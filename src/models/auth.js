@@ -16,10 +16,11 @@ module.exports = {
     getPassword : (username)=>{
         return new Promise((resolve, reject)=>{
             conn.query('SELECT password FROM users where username = ?', username, (err, result)=>{
-                let data = result[0].password
                 if(!err){
+                    let data = result[0].password
                     resolve(data)
                 }else{
+                    // let message=`Username doesn't exist`
                     reject(new Error(err))
                 }
             })

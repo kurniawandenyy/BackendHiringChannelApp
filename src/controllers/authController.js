@@ -1,4 +1,5 @@
 'use strict'
+require('dotenv/config')
 const uuidv4 = require('uuid/v4')
 const model = require('../models/auth')
 const bcrypt = require('bcryptjs')
@@ -26,33 +27,33 @@ module.exports = {
         })
     },
     login : (req, res)=>{
-        const {username, role} = req.body
-        const password = bcrypt.hashSync(req.body.password)
-        // const data = {username, password, role}
-        
-        model.getPassword(username)
-        .then(result=>{
-            let validPassword = bcrypt.compareSync(req.body.password, result)
-            if(!validPassword){
-                res.json({
-                    message:'gagal'
-                })
-            }else{
-                res.json({
-                    message:'sukses'
-                })
-                // jwt.sign({user}, 'secretKey', {expiresIn: '30s'}, (err, token)=>{
-                //     res.json({
-                //         token
-                //     })
-                // })
-            }
-        })
-        .catch(err=>{
-            res.status(400).json({
-                message:err
+        const username = req.body.username
+        const password = req.body.password?req.body.password:''
+        if(!username){
+            res.json({
+                message : 'Username required'
             })
-        })
-        
+        }else{
+            model.getUser(username)
+            .then(result=>{
+                let validPassword = bcrypt.compareSync(password, result[0].password)
+                if(!validPassword){
+                    res.json({
+                        message:'Invalid Password, Login Failed!!!'
+                    })
+                }else{
+                    jwt.sign({result}, process.env.SECRET_KEY, {expiresIn: '1d'}, (err, token)=>{
+                        res.json({
+                            message:'Login Success!',
+                            data: result[0],
+                            token
+                        })
+                    })
+                }
+            })
+            .catch(err=>{
+                res.json({err})
+            })
+        }    
     }
 }
