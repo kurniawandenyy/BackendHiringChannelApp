@@ -49,7 +49,7 @@ exports.addCompany = (req, res)=>{
         }else{
             const {name, email, location, description} = req.body
             const id = uuidv4()
-            const logo = req.file.filename
+            const logo = req.file ? req.file.filename : req.file
             const data = {id, name, email, logo, location, description}
             model.addCompany(data)
             .then(result=>{
@@ -77,7 +77,7 @@ exports.editCompany=(req, res)=>{
             })
         }else{
             const {name, email, location, description} = req.body
-            const logo = req.file.filename
+            const logo = req.file ? req.file.filename : req.file
             const data = {name, email, logo, location, description}
             const id = req.params.id
             model.editCompany(data, id)

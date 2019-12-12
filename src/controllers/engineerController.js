@@ -72,7 +72,7 @@ module.exports = {
             }else{
                 const {name, description, skill, location, date_of_birth,no_hp,email} = req.body
                 const id = uuidv4()
-                const showcase = req.file.filename
+                const showcase = req.file ? req.file.filename : req.file
                 const {date_created, date_updated} = new Date()
                 const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated, no_hp, email}
 
@@ -84,7 +84,7 @@ module.exports = {
                     })
                 })
                 .catch(err=>{
-                    res,status(400).json({
+                    res.status(400).json({
                         error:true,
                         message:err
                     })
@@ -100,7 +100,7 @@ module.exports = {
                 })
             }else{
                 const {name, description, skill, location, date_of_birth, no_hp, email} = req.body
-                const showcase = req.file.filename
+                const showcase = req.file ? req.file.filename : req.file
                 const date_updated = new Date()
                 const id = req.params.id
                 const data = {name, description, skill, location, date_of_birth, showcase, date_updated, no_hp, email}
