@@ -6,6 +6,7 @@ const engineer = require('../controllers/engineerController')
 const company = require('../controllers/companyController')
 const auth = require('../controllers/authController')
 const authCheck = require('../helpers/authCheck')
+const message = require('../controllers/messageController')
 
 Route
     //Engineer routes
@@ -25,6 +26,9 @@ Route
     //auth
     .post('/register', auth.register)
     .post('/login', auth.login)
+
+    //messages
+    .post('/messages', authCheck.check, message.sendMessage)
 
 module.exports=Route
 
