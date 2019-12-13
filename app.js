@@ -6,7 +6,7 @@ const routeNav = require('./src/index')
 const logger = require('morgan')
 const cors = require('cors')
 
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 8000
 
 //use dependencies
 const app = express()
