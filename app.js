@@ -8,7 +8,6 @@ const cors = require('cors')
 
 const port = process.env.PORT || 3001
 
-
 //use dependencies
 const app = express()
 app.use(bodyParser.json())
@@ -22,7 +21,7 @@ app.use(cors())
 // })
 
 app.use(express.static('./public'))
-app.use('/api/v1', routeNav)
+app.use('/', routeNav)
 
 app.listen(port, function(){
     console.log(`Server is running on port ${port}!`)

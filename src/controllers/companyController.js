@@ -5,6 +5,7 @@ const multer = require('multer')
 const path = require('path')
 const helpers = require('../helpers/helpers')
 const model = require('../models/company')
+const miscHelper = require('../helpers/misc')
 
 //set storage engine multer
 const storage = multer.diskStorage({
@@ -26,10 +27,11 @@ const upload = multer({
 exports.getCompanies = (req, res)=>{
     model.getCompanies()
     .then(result=>{
-        res.status(200).json({
-            error: false,
-            data: result
-        })
+        return miscHelper.response(res, 200, false, 'success', result)
+        // res.status(200).json({
+        //     error: false,
+        //     data: result
+        // })
     })
     .catch(err=>{
         res.status(400).json({
