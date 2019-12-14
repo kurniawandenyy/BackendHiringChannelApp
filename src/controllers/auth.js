@@ -8,23 +8,34 @@ const jwt = require('jsonwebtoken')
 module.exports = {
     register : (req, res)=>{
         const id = uuidv4()
-        const {email, role} = req.body
+        const {name, email, role} = req.body
+        const {date_updated, date_created} = Date.now()
         const password = bcrypt.hashSync(req.body.password, 8)
         const data = {id, email, password, role}
+        const dataEngineers = {id, name, email, date_created, date_updated}
+        const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
-        model.register(data)
-        .then(result=>{
-            res.status(200).json({
-                error: false,
-                message: result
+        if(regex.test(email)===true){
+            model.register(data, dataEngineers)
+            .then(result=>{
+                res.status(200).json({
+                    error: false,
+                    message: result
+                })
             })
-        })
-        .catch(err=>{
-            res.status(400).json({
+            .catch(err=>{
+                res.status(400).json({
+                    error: true,
+                    message: err
+                })
+            })
+        }else{
+            res.json({
                 error: true,
-                message: err
+                message: 'Invalid Email!'
             })
-        })
+        }
+        
     },
     login : (req, res)=>{
         const email = req.body.email

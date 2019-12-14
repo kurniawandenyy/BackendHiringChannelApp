@@ -1,11 +1,11 @@
 'use strict'
 
-//filter upload
-const imageFilter = (req, file, cb)=>{
-    if(!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)){
-        req.fileValidationError = 'Only image files are allowed!'
-        return cb(new Error('Only image files are allowed!'), false)
+module.exports = {
+    imageFilter : (req, file, cb)=>{
+        if(!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)){
+            req.fileValidationError = 'Only image files are allowed!'
+            return cb(new Error('Only image files are allowed!'), false)
+        }
+        cb(null, true)
     }
-    cb(null, true)
 }
-exports.imageFilter = imageFilter

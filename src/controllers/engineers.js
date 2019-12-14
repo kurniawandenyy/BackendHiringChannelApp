@@ -116,16 +116,21 @@ module.exports = {
     },
     addEngineer : (req, res)=>{
         upload(req, res, (err)=>{
-            if(err){
+            if(req.fileValidationError){
+                res.status(400).json({
+                    error : true,
+                    message: 'Only image files are allowed!'
+                })
+            }else if(err){
                 res.status(400).json({
                     message: err
                 })
             }else{
-                const {name, description, skill, location, date_of_birth,no_hp,email} = req.body
+                const {name, description, skill, location, date_of_birth, phone, email, expected_salary} = req.body
                 const id = uuidv4()
                 const showcase = req.file ? req.file.filename : req.file
                 const {date_created, date_updated} = new Date()
-                const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated, no_hp, email}
+                const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated, phone, email, expected_salary}
 
                 model.addEngineer(data)
                 .then(result=>{
@@ -150,11 +155,11 @@ module.exports = {
                     message: err
                 })
             }else{
-                const {name, description, skill, location, date_of_birth, no_hp, email} = req.body
+                const {name, description, skill, location, date_of_birth, phone, expected_salary, email} = req.body
                 const showcase = req.file ? req.file.filename : req.file
                 const date_updated = new Date()
                 const id = req.params.id
-                const data = {name, description, skill, location, date_of_birth, showcase, date_updated, no_hp, email}
+                const data = {name, description, skill, location, date_of_birth, showcase, date_updated, phone, expected_salary, email}
 
                 model.editEngineer(data, id)
                 .then(result=>{

@@ -3,7 +3,7 @@ const express = require('express')
 const Route = express.Router()
 
 const authCheck = require('../helpers/authCheck')
-const engineer = require('../controllers/engineerController')
+const engineer = require('../controllers/engineers')
 
 Route
     //Engineer routes

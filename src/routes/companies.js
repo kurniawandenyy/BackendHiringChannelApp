@@ -3,7 +3,7 @@ const express = require('express')
 const Route = express.Router()
 
 const authCheck = require('../helpers/authCheck')
-const company = require('../controllers/companyController')
+const company = require('../controllers/companies')
 
 Route
     //company routes
