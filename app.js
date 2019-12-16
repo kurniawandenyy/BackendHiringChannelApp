@@ -20,7 +20,6 @@ app.use(cors())
 //     next()
 // })
 
-app.use(express.static('./public'))
 app.use('/', routeNav)
 
 app.listen(port, function(){

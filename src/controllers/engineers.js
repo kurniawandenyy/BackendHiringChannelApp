@@ -8,7 +8,7 @@ const helpers = require('../helpers/helpers')
 const miscHelper = require('../helpers/misc')
 
 const storage = multer.diskStorage({
-    destination: './public/uploads/showcase',
+    destination: './src/img/engineer',
     filename: (req, file, cb)=>{
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
@@ -21,7 +21,7 @@ const upload = multer({
         fileSize: 1*1024*1024
     },
     fileFilter: helpers.imageFilter
-}).single('showcase')
+}).single('photo')
 
 module.exports = {
     getEngineers:(req, res)=>{
@@ -126,11 +126,12 @@ module.exports = {
                     message: err
                 })
             }else{
-                const {name, description, skill, location, date_of_birth, phone, email, expected_salary} = req.body
+                const {name, description, skill, location, date_of_birth, phone, email, expected_salary, showcase} = req.body
                 const id = uuidv4()
-                const showcase = req.file ? req.file.filename : req.file
+                // const showcase = req.file ? req.file.path : req.file
+                const photo = req.file ? process.env.BASE_URL+req.file.path : req.file
                 const {date_created, date_updated} = new Date()
-                const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated, phone, email, expected_salary}
+                const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated, phone, email, expected_salary, photo}
 
                 model.addEngineer(data)
                 .then(result=>{
@@ -142,7 +143,7 @@ module.exports = {
                 .catch(err=>{
                     res.status(400).json({
                         error:true,
-                        message:err
+                        message: err
                     })
                 })
             }
@@ -155,11 +156,11 @@ module.exports = {
                     message: err
                 })
             }else{
-                const {name, description, skill, location, date_of_birth, phone, expected_salary, email} = req.body
-                const showcase = req.file ? req.file.filename : req.file
+                const {name, description, skill, location, date_of_birth, phone, expected_salary, email, showcase} = req.body
+                const photo = req.file ? req.file.path : req.file
                 const date_updated = new Date()
                 const id = req.params.id
-                const data = {name, description, skill, location, date_of_birth, showcase, date_updated, phone, expected_salary, email}
+                const data = {name, photo, description, skill, location, date_of_birth, showcase, date_updated, phone, expected_salary, email}
 
                 model.editEngineer(data, id)
                 .then(result=>{
