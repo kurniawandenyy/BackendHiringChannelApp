@@ -26,7 +26,7 @@ const upload = multer({
 module.exports = {
     getEngineers:(req, res)=>{
         const page = parseInt(req.query.page) || 1
-        const limit = parseInt(req.query.limit) || 5
+        const limit = parseInt(req.query.limit) || 10
         const offset = (page-1)*limit
         const sort = req.query.sort ? req.query.sort : 'name'
         const order = req.query.order || 'asc'
@@ -71,7 +71,7 @@ module.exports = {
                     limit,
                     totalData: result.dataTotal,
                     totalPage: pageTotal,
-                    Result: result
+                    result
                 })
             }else if(page===pageTotal&&pageTotal!==1){
                 res.status(200).json({
@@ -81,7 +81,7 @@ module.exports = {
                     limit,
                     totalData: result.dataTotal,
                     totalPage: pageTotal,
-                    Result: result
+                    result
                 })
             }else if(pageTotal===1){
                 res.status(200).json({
@@ -90,7 +90,7 @@ module.exports = {
                     limit,
                     totalData: result.dataTotal,
                     totalPage: pageTotal,
-                    Result: result
+                    result
                 })
             }else{
                 // return miscHelper.response(res, 200, false, 'Success', result)
