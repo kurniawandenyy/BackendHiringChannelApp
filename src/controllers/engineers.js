@@ -24,9 +24,25 @@ const upload = multer({
 }).single('photo')
 
 module.exports = {
+    getEngineer: (req, res)=>{
+        let id = req.params.id
+        model.getEngineer(id)
+            .then(result=>{
+                res.status(200).json({
+                    error: false,
+                    result
+                })
+            })
+            .catch(err=>{
+                res.status(400).json({
+                    error:true,
+                    err
+                })
+            })
+    },
     getEngineers:(req, res)=>{
         const page = parseInt(req.query.page) || 1
-        const limit = parseInt(req.query.limit) || 4
+        const limit = parseInt(req.query.limit) || 10
         const offset = (page-1)*limit
         const sort = req.query.sort ? req.query.sort : 'name'
         const order = req.query.order || 'asc'
@@ -37,7 +53,6 @@ module.exports = {
         const pageDetail = {
 
         }
-
         if(!name){
             condition = "where skill like '%"+skill+"%' order by "+sort+" "+order
         }
@@ -53,7 +68,7 @@ module.exports = {
 
         let nextPage = process.env.BASE_URL+url.replace(`page=${page}`, 'page='+parseInt(page+1))
         let prevPage = process.env.BASE_URL+url.replace(`page=${page}`, 'page='+parseInt(page-1))
- 
+    
         model.getEngineers(limit, offset, condition)
         .then(result=>{
             let pageTotal = result.dataTotal%limit===0?result.dataTotal/limit:Math.floor((result.dataTotal/limit)+1)
@@ -129,7 +144,7 @@ module.exports = {
                 const {name, description, skill, location, date_of_birth, phone, email, expected_salary, showcase} = req.body
                 const id = uuidv4()
                 // const showcase = req.file ? req.file.path : req.file
-                const photo = req.file ? process.env.BASE_URL+req.file.path : req.file
+                const photo = req.file ? process.env.BASE_URL+'/'+req.file.path : req.file
                 const {date_created, date_updated} = new Date()
                 const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated, phone, email, expected_salary, photo}
 
@@ -157,7 +172,7 @@ module.exports = {
                 })
             }else{
                 const {name, description, skill, location, date_of_birth, phone, expected_salary, email, showcase} = req.body
-                const photo = req.file ? req.file.path : req.file
+                const photo = req.file ? process.env.BASE_URL+'/'+req.file.path : req.file
                 const date_updated = new Date()
                 const id = req.params.id
                 const data = {name, photo, description, skill, location, date_of_birth, showcase, date_updated, phone, expected_salary, email}

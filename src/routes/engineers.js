@@ -8,6 +8,7 @@ const engineer = require('../controllers/engineers')
 Route
     //Engineer routes
     .get('/', engineer.getEngineers)
+    .get('/:id', engineer.getEngineer)
     .post('/', authCheck.engineerCheck, engineer.addEngineer)
     .put('/:id', authCheck.engineerCheck, engineer.editEngineer)
     .delete('/:id', authCheck.engineerCheck, engineer.deleteEngineer)

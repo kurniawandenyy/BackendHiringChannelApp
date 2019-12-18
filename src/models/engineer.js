@@ -1,6 +1,17 @@
 const conn = require('../configs/connect')
 
 module.exports = {
+    getEngineer: (id)=>{
+        return new Promise((resolve, reject)=>{
+            conn.query(`Select * from engineers where id='${id}'`, (err, result)=>{
+                if(err){
+                    reject(new Error(err))
+                }else{
+                    resolve(result)
+                }
+            })
+        })
+    },
     getEngineers : (limit, offset, condition)=>{
         return new Promise((resolve, reject)=>{
             conn.query(`SELECT COUNT(*) as data from engineers ${condition}`, (err, rows)=>{
