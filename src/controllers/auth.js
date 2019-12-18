@@ -12,11 +12,12 @@ module.exports = {
         const {date_updated, date_created} = Date.now()
         const password = bcrypt.hashSync(req.body.password, 8)
         const data = {id, email, password, role}
-        const dataEngineers = {id, name, email, date_created, date_updated}
+        const dataEngineer = {id, name, email, date_created, date_updated}
+        const dataCompany = {id, name, email}
         const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
-        if(regex.test(email)===true){
-            model.register(data, dataEngineers)
+        if(regex.test(email)){
+            model.register(data, dataEngineer, dataCompany)
             .then(result=>{
                 res.status(200).json({
                     error: false,
