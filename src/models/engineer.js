@@ -69,8 +69,12 @@ module.exports = {
         return new Promise((resolve, reject)=>{
             conn.query('DELETE FROM engineers where id = ?', id, (err)=>{
                 if(!err){
-                    let result = 'Data Deleted Successfully'
-                    resolve(result)
+                    conn.query('DELETE FROM users where id = ?', id, (err)=>{
+                        if(!err){
+                            let result = 'Data Deleted Successfully'
+                            resolve(result)
+                        }
+                    })
                 }else{
                     reject(new Error(err))
                 }
