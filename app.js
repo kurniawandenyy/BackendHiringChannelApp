@@ -10,6 +10,7 @@ const port = process.env.PORT || 8000
 
 //use dependencies
 const app = express()
+app.use(express.static('./public'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended:true }))
 app.use(logger('dev'))  

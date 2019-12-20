@@ -8,7 +8,7 @@ const helpers = require('../helpers/helpers')
 const miscHelper = require('../helpers/misc')
 
 const storage = multer.diskStorage({
-    destination: './src/img/engineer',
+    destination: './public/uploads/engineers',
     filename: (req, file, cb)=>{
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
     }
@@ -144,7 +144,7 @@ module.exports = {
                 const {name, description, skill, location, date_of_birth, phone, email, expected_salary, showcase} = req.body
                 const id = uuidv4()
                 // const showcase = req.file ? req.file.path : req.file
-                const photo = req.file ? process.env.BASE_URL+'/'+req.file.path : req.file
+                const photo = req.file ? req.file.filename : req.file
                 const {date_created, date_updated} = new Date()
                 const data = {id,name, description, skill, location, date_of_birth, showcase, date_created, date_updated, phone, email, expected_salary, photo}
 
@@ -172,7 +172,7 @@ module.exports = {
                 })
             }else{
                 const {name, description, skill, location, date_of_birth, phone, expected_salary, email, showcase} = req.body
-                const photo = req.file ? process.env.BASE_URL+'/'+req.file.path : req.file
+                const photo = req.file ? req.file.filename : req.file
                 const date_updated = new Date()
                 const id = req.params.id
                 const data = {name, photo, description, skill, location, date_of_birth, showcase, date_updated, phone, expected_salary, email}
