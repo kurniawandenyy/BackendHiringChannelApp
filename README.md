@@ -18,8 +18,10 @@ Project is created with:
 Steps to run this project:
 
 ```
+* create new database
+* import hiring_channel.sql file to your new database
 * Rename .env.example file to .env
-* Tambahkan database setting di dalam file .env
+* edit the .env file and enter your database settings
 * $ npm install
 * $ npm start
 ```
