@@ -42,7 +42,7 @@ module.exports = {
     },
     getEngineers:(req, res)=>{
         const page = parseInt(req.query.page) || 1
-        const limit = parseInt(req.query.limit) || 10
+        const limit = parseInt(req.query.limit) || 20
         const offset = (page-1)*limit
         const sort = req.query.sort ? req.query.sort : 'name'
         const order = req.query.order || 'asc'
@@ -73,13 +73,17 @@ module.exports = {
         .then(result=>{
             let pageTotal = result.dataTotal%limit===0?result.dataTotal/limit:Math.floor((result.dataTotal/limit)+1)
             if(page>pageTotal || page===0){
-                res.status(404).json({
+                return res.status(200).json({
                     error: true,
-                    message: '404 Page Not Found!'
+                    message: '404 Page Not Found!',
+                    page,
+                    limit,
+                    totalData: result.dataTotal,
+                    totalPage: pageTotal,
+                    result
                 })
-            }
-            if(page===1&&pageTotal!==1){
-                res.status(200).json({
+            }else if(page===1&&pageTotal!==1){
+                return res.status(200).json({
                     error: false,
                     page,
                     nextPage,
@@ -89,7 +93,7 @@ module.exports = {
                     result
                 })
             }else if(page===pageTotal&&pageTotal!==1){
-                res.status(200).json({
+                return res.status(200).json({
                     error: false,
                     page,
                     prevPage,
@@ -99,7 +103,7 @@ module.exports = {
                     result
                 })
             }else if(pageTotal===1){
-                res.status(200).json({
+                return res.status(200).json({
                     error: false,
                     page,
                     limit,
@@ -109,7 +113,7 @@ module.exports = {
                 })
             }else{
                 // return miscHelper.response(res, 200, false, 'Success', result)
-                res.status(200).json({
+                return res.status(200).json({
                     error: false,
                     page,
                     nextPage,
@@ -123,7 +127,7 @@ module.exports = {
             
         })
         .catch(err=>{
-            res.status(400).json({
+            return res.status(400).json({
                 error:true,
                 message: err
             })
