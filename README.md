@@ -6,8 +6,7 @@
 * [Setup](#setup)
 
 ## General info
-Project ini adalah backend untuk hiring channel app, yang dibuat untuk company yang membutuhkan engineer, 
-pihak company dapat melihat data-data engineer seperti nama, skill, lokasi, kontak, dan portfolio engineer
+this project is a backend for the hiring channel app, created to connect companies with job seekers. Built with NodeJs using the ExpressJs Framework. Express.js is a web application framework for Node.js. [More about ExpressJs](https://en.wikipedia.org/wiki/Express.js)
 	
 ## Technologies
 Project is created with:
