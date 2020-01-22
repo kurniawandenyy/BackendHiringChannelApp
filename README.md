@@ -6,6 +6,7 @@
 * [Requirements](#requirements)
 * [Setup](#setup)
 * [End Point](#end-point)
+* [Contributors](#contributors)
 
 ## General info
 this project is a backend for the hiring channel app, created to connect companies with job seekers. Built with NodeJs using the ExpressJs Framework. Express.js is a web application framework for Node.js. [More about ExpressJs](https://en.wikipedia.org/wiki/Express.js)
@@ -17,10 +18,9 @@ Project is created with:
 [![Express.js](https://img.shields.io/badge/Express.js-4.x-orange.svg?style=rounded-square)](https://expressjs.com/en/starter/installing.html)
 
 ## Requirements
-1. <a href="https://nodejs.org/en/download/">Node Js</a>
-2. Node_modules
-3. <a href="https://www.getpostman.com/">Postman</a>
-4. Web Server (ex. localhost)
+1. <a href="https://www.npmjs.com/get-npm">NPM</a>
+2. <a href="https://www.getpostman.com/">Postman</a> for API testing
+3. Web Server (ex. localhost)
 
 ## Setup
 Steps to run this project:
@@ -63,3 +63,18 @@ Steps to run this project:
 	* /api/v1/companies/:id
 	
 ```
+
+## Contributors
+
+<center>
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/kurniawandenyy">
+          <img width="100" src="https://avatars1.githubusercontent.com/u/48039021?s=460&v=4" alt="Deny Kurniawan"><br/>
+          <sub><b>Deny Kurniawan</b></sub>
+        </a>
+      </td>
+    </tr>
+  </table>
+</center>
