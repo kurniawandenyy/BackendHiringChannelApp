@@ -25,14 +25,16 @@ Project is created with:
 ## Setup
 Steps to run this project:
 
-```
-* create new database
-* import hiring_channel.sql file to your new database
-* Rename .env.example file to .env
-* edit the .env file and enter your database settings
-* $ npm install
-* $ npm start
-```
+ - Create new database
+ - Import [hiring_channel.sql](https://github.com/kurniawandenyy/BackendHiringChannelApp/blob/master/hiring_channel.sql) file to your new database
+ - Rename .env.example file to .env
+ - Edit the .env file and enter your database settings
+ - Open terminal and go to your apps directory
+ - run ```npm install```
+ - then run ```npm start```
+
+
+
 
 ## End Point
 
