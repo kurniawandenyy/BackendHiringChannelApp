@@ -6,6 +6,7 @@
 * [Requirements](#requirements)
 * [Setup](#setup)
 * [End Point](#end-point)
+* [Contact](#contact)
 * [Contributors](#contributors)
 
 ## General info
@@ -63,6 +64,10 @@ Steps to run this project:
 	* /api/v1/companies/:id
 	
 ```
+
+## Contact
+
+If you want to contact me you can reach me at <denykurniawan146@gmail.com>.
 
 ## Contributors
 
