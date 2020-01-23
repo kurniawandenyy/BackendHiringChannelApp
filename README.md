@@ -19,7 +19,7 @@ Project is created with:
 [![Express.js](https://img.shields.io/badge/Express.js-4.x-orange.svg?style=rounded-square)](https://expressjs.com/en/starter/installing.html)
 
 ## Requirements
-1. <a href="https://www.npmjs.com/get-npm">NPM</a>
+1. <a href="https://nodejs.org/en/">NodeJs</a>
 2. <a href="https://www.getpostman.com/">Postman</a> for API testing
 3. Web Server (ex. localhost)
 
