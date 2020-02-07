@@ -21,7 +21,6 @@ Project is created with:
 ## Requirements
 1. <a href="https://nodejs.org/en/">NodeJs</a>
 2. <a href="https://www.getpostman.com/">Postman</a> for API testing
-3. Web Server (ex. localhost)
 
 ## Setup
 Steps to run this project:
